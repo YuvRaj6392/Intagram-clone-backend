@@ -6,5 +6,5 @@ app.get('/',(req,res)=>{
     res.send('Hi')
 })
 app.listen(PORT,()=>{
-    console.log(`The server is listening on PORT ${PORT}`)
+    console.log(`The server is listening at PORT ${PORT}`)
 })
