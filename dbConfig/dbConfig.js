@@ -1,0 +1,4 @@
+module.exports={
+    //here you will use the url from mongoDb atlas
+   url:"mongodb+srv://yuvraj6392:<password>@cluster0.jixyxnw.mongodb.net/?retryWrites=true&w=majority"
+}
