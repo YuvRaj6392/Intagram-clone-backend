@@ -1,6 +1,7 @@
 //we initialized express which is a nodejs framework to help manage server and routes
 const express=require('express');
 const db=require('./models/index')
+const bodyParser=require('body-parser');
 const app=express();
 const PORT=8080;
 db.mongoose.connect(db.url,{
@@ -14,6 +15,10 @@ db.mongoose.connect(db.url,{
     process.exit()
     //By calling process.exit(), the Node.js process is terminated, and the application will stop running. This is a common approach to handle critical errors that cannot be recovered from, ensuring that the application does not continue to run in an undefined state.
   })
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+require('./routes/user.route')(app);
 app.listen(PORT,()=>{
     console.log(`The server is listening at PORT ${PORT}`)
 })
