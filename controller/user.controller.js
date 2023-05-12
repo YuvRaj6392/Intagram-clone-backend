@@ -1,7 +1,7 @@
 const db=require('../models/index');
 const bcrypt = require("bcrypt");
 const jwt=require('jsonwebtoken');
-const secret="benzema123";
+const {secret}=require('../dbConfig/dbConfig')
 const User=db.users;
 
 //controller for signup
