@@ -5,6 +5,7 @@ module.exports=app=>{
     router.post('/signup',User.signup);
     router.post('/signin',User.signin);
     router.post('/test',validateToken,(req,res)=>{
+        const user=req.user;
         res.json({
             message:"Page populated after getting the token"
         })

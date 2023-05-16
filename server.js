@@ -19,6 +19,7 @@ db.mongoose.connect(db.url,{
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 require('./routes/user.route')(app);
+require('./routes/post.route')(app);
 app.listen(PORT,()=>{
     console.log(`The server is listening at PORT ${PORT}`)
 })
