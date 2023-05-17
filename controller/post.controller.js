@@ -32,3 +32,29 @@ exports.uploadpost= async (req,res)=>{
     }
     
 }
+
+exports.showallposts = (req, res) => {
+    try {
+      Post.find()
+        
+        .then((data) => {
+            
+          res.status(200).json({
+            success: true,
+            message: data,
+          });
+        })
+        .catch((err) => {
+          res.status(400).json({
+            success: false,
+            message: 'Failed to find the posts!',
+          });
+        });
+    } catch(ex)
+    {
+        return res.status(500).json({
+            success:false,
+            message:'Internal server error!'
+        })
+    }
+}
