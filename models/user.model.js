@@ -11,7 +11,7 @@ module.exports = (mongoose) => {
           type: String,
           required: true,
           unique: true,
-          index:true
+          index: true,
         },
         password: {
           type: String,

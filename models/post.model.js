@@ -1,4 +1,3 @@
-
 module.exports=(mongoose)=>{
     const Post=mongoose.model('post',mongoose.Schema({
         title:{
@@ -14,9 +13,9 @@ module.exports=(mongoose)=>{
             default:"No Photo"
         },
         postedBy:{
-            type:mongoose.Types.ObjectId,ref:'User'
+            type:mongoose.Schema.Types.ObjectId,ref:'user'
         }
-    }))
+    }));
     return Post
 }
 //User is the user model
