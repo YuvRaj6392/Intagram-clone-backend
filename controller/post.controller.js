@@ -50,3 +50,21 @@ exports.showallposts = (req, res, next) => {
       });
     });
 };
+
+
+exports.myposts= (req,res)=>{
+ Post.find({postedBy:req.user})
+ .populate('postedBy','_id name email')
+ .then(data=>{
+  res.status(200).json({
+    success:true,
+    message:data
+  })
+ }).catch(ex=>{
+  res.status(500).json({
+    success:false,
+    message:'Internal server error!'
+  })
+ })
+  
+}
