@@ -15,14 +15,14 @@ exports.signup = async (req, res) => {
       {
         return res.status(400).json({
             success: false,
-            error: "Fill all the fields!",
+            message: "Fill all the fields!",
           });
       }
       const user = await User.findOne({ email });
       if (user) {
         return res.status(400).json({
           success: false,
-          error: "User already exists!",
+          message: "User already exists!",
         });
       }
   
@@ -37,7 +37,7 @@ exports.signup = async (req, res) => {
       
       return res.status(200).json({
         success: true,
-        user: newUser,
+        message: newUser,
       });
     } catch (err) {
       // Handle specific errors
@@ -86,9 +86,15 @@ exports.signup = async (req, res) => {
       })
       const data=user.id;
       const jwtToken=jwt.sign(data,secret);
+      let obj={
+        _id:user._id,
+        name:user.name,
+        email:user.email
+      }
       res.status(200).json({
         success:true,
-        message:jwtToken
+        message:jwtToken,
+        user:obj
       })
 
     }catch(ex){

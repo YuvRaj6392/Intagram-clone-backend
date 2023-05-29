@@ -2,8 +2,13 @@
 const express=require('express');
 const db=require('./models/index')
 const bodyParser=require('body-parser');
+const cors=require('cors');
 const app=express();
 const PORT=8080;
+var corsOption={
+  origin:"http://localhost:3000"
+};
+app.use(cors(corsOption));
 db.mongoose.connect(db.url,{
     useNewUrlParser: true,
     useUnifiedTopology: true
