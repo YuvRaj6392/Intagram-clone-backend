@@ -10,11 +10,14 @@ module.exports=(mongoose)=>{
         },
         photo:{
             type:String,
-            default:"No Photo"
+            required:true
         },
         postedBy:{
             type:mongoose.Schema.Types.ObjectId,ref:'user'
         }
+    },
+    {
+      timestamps: true,
     }));
     return Post
 }

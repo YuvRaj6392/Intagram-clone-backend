@@ -33,9 +33,10 @@ exports.uploadpost= async (req,res)=>{
     
 }
 
-exports.showallposts = (req, res, next) => {
+exports.showallposts = (req, res) => {
   Post.find()
     .populate('postedBy','_id name email')
+    .sort({ updatedAt: -1 })
     .then((data) => {
       res.status(200).json({
         success: true,
