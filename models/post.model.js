@@ -12,6 +12,7 @@ module.exports=(mongoose)=>{
             type:String,
             required:true
         },
+        likes:[{type:mongoose.Schema.Types.ObjectId,ref:'user'}],
         postedBy:{
             type:mongoose.Schema.Types.ObjectId,ref:'user'
         }

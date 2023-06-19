@@ -69,3 +69,44 @@ exports.myposts= (req,res)=>{
  })
   
 }
+
+exports.like = async (req, res) => {
+  try {
+    const result = await Post.findByIdAndUpdate(
+      req.body.postId,
+      { $push: { likes: req.user } },
+      { new: true }
+    ).exec();
+
+    res.json({
+      success: true,
+      message: result,
+    });
+  } catch (err) {
+    res.status(422).json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+
+exports.unlike = async (req, res) => {
+  try {
+    const result = await Post.findByIdAndUpdate(
+      req.body.postId,
+      { $pull: { likes: req.user } },
+      { new: true }
+    ).exec();
+
+    res.json({
+      success: true,
+      message: result,
+    });
+  } catch (err) {
+    res.status(422).json({
+      success: false,
+      message: err,
+    });
+  }
+};

@@ -5,5 +5,7 @@ module.exports=app=>{
     router.post('/uploadpost',validateToken,Post.uploadpost)
     router.get('/showallposts',validateToken,Post.showallposts)
     router.get('/myposts',validateToken,Post.myposts)
+    router.put('/like',validateToken,Post.like)
+    router.put('/unlike',validateToken,Post.unlike)
     app.use('/api',router);
 }
