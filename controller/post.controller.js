@@ -76,7 +76,9 @@ exports.like = async (req, res) => {
       req.body.postId,
       { $push: { likes: req.user } },
       { new: true }
-    ).exec();
+    )
+    .populate('postedBy', '_id name email')
+    .exec();
 
     res.json({
       success: true,
@@ -97,7 +99,9 @@ exports.unlike = async (req, res) => {
       req.body.postId,
       { $pull: { likes: req.user } },
       { new: true }
-    ).exec();
+    )
+    .populate('postedBy', '_id name email')
+    .exec();
 
     res.json({
       success: true,
