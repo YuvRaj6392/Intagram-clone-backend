@@ -1,5 +1,6 @@
 const db=require('../models/index');
 const Post=db.posts;
+
 exports.uploadpost= async (req,res)=>{
     const user=req.user;
     const {title,body,photo}=req.body;
@@ -101,6 +102,33 @@ exports.unlike = async (req, res) => {
       { new: true }
     )
     .populate('postedBy', '_id name email')
+    .exec();
+
+    res.json({
+      success: true,
+      message: result,
+    });
+  } catch (err) {
+    res.status(422).json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+
+exports.comments = async (req, res) => {
+  try {
+    const comments={
+      text:req.body.text,
+      postedBy:req.user
+    }
+    const result = await Post.findByIdAndUpdate(
+      req.body.postId,
+      { $push: { comments: comments } },
+      { new: true }
+    )
+    .populate('comments.postedBy','_id name email')
     .exec();
 
     res.json({

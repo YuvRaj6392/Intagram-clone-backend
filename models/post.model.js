@@ -13,6 +13,12 @@ module.exports=(mongoose)=>{
             required:true
         },
         likes:[{type:mongoose.Schema.Types.ObjectId,ref:'user'}],
+        comments:[{
+            text:String,
+            postedBy:{
+                type:mongoose.Schema.Types.ObjectId,ref:'user'
+            }
+        }],
         postedBy:{
             type:mongoose.Schema.Types.ObjectId,ref:'user'
         }
