@@ -36,6 +36,7 @@ exports.uploadpost= async (req,res)=>{
 
 exports.showallposts = (req, res) => {
   Post.find()
+    .populate('comments.postedBy','_id name email')
     .populate('postedBy','_id name email')
     .sort({ updatedAt: -1 })
     .then((data) => {
@@ -78,6 +79,7 @@ exports.like = async (req, res) => {
       { $push: { likes: req.user } },
       { new: true }
     )
+    .populate('comments.postedBy','_id name email')
     .populate('postedBy', '_id name email')
     .exec();
 
@@ -101,6 +103,7 @@ exports.unlike = async (req, res) => {
       { $pull: { likes: req.user } },
       { new: true }
     )
+    .populate('comments.postedBy','_id name email')
     .populate('postedBy', '_id name email')
     .exec();
 
@@ -129,6 +132,7 @@ exports.comments = async (req, res) => {
       { new: true }
     )
     .populate('comments.postedBy','_id name email')
+    .populate('postedBy', '_id name email')
     .exec();
 
     res.json({
