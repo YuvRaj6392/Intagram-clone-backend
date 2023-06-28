@@ -38,7 +38,6 @@ exports.showallposts = (req, res) => {
   Post.find()
     .populate('comments.postedBy','_id name email')
     .populate('postedBy','_id name email')
-    .sort({ updatedAt: -1 })
     .then((data) => {
       res.status(200).json({
         success: true,
@@ -146,3 +145,38 @@ exports.comments = async (req, res) => {
     });
   }
 };
+
+
+exports.deletePost = async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.postId }).populate('postedBy', '_id').exec();
+    console.log(post.postedBy.id)
+    console.log(req.user)
+    if (!post) {
+      return res.status(422).json({
+        success: false,
+        message: 'Post not found'
+      });
+    }
+    
+    if (post.postedBy.id.toString() !== req.user.toString()) {
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized'
+      });
+    }
+    
+    await Post.deleteOne({ _id: post._id });
+    
+    res.json({
+      success: true,
+      message: post
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
+

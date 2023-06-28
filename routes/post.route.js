@@ -8,5 +8,6 @@ module.exports=app=>{
     router.put('/like',validateToken,Post.like)
     router.put('/unlike',validateToken,Post.unlike)
     router.put('/comments',validateToken,Post.comments)
+    router.delete('/deletePost/:postId',validateToken,Post.deletePost)
     app.use('/api',router);
 }
