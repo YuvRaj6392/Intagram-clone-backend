@@ -38,6 +38,7 @@ exports.showallposts = (req, res) => {
   Post.find()
     .populate('comments.postedBy','_id name email')
     .populate('postedBy','_id name email')
+    .sort({ createdAt: -1 })
     .then((data) => {
       res.status(200).json({
         success: true,

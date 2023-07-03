@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 require('./routes/user.route')(app);
 require('./routes/post.route')(app);
+require('./routes/showUserProfile.route')(app);
 app.listen(PORT,()=>{
     console.log(`The server is listening at PORT ${PORT}`)
 })
