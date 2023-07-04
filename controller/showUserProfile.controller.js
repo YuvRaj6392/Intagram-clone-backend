@@ -14,7 +14,7 @@ exports.showUserProfile=async (req,res)=>{
 
         const posts=await Post.find({postedBy:req.params.id}).populate('postedBy', '_id name email').exec();
         return res.json({
-            success:true,
+            
             user,posts
         })
 
