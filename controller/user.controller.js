@@ -104,4 +104,75 @@ exports.signup = async (req, res) => {
       })
     }
   }
+
+
+  //for following the user
+  //2 things happen follower of one user increases and also following of another user increases
+  exports.follow = async (req, res) => {
+    try {
+      const followedUser = await User.findByIdAndUpdate(
+        req.body.followId,
+        {
+          $push: { followers: req.user },
+        },
+        { new: true }
+      );
+  
+      const currentUser = await User.findByIdAndUpdate(
+        req.user,
+        {
+          $push: { following: req.body.followId },
+        },
+        { new: true }
+      );
+  
+      return res.status(200).json({
+        success: true,
+        message: {
+          followedUser,
+          currentUser,
+        },
+      });
+    } catch (error) {
+      return res.status(422).json({
+        success: false,
+        message: error,
+      });
+    }
+  };
+
+
+  exports.unFollow = async (req, res) => {
+    try {
+      const followedUser = await User.findByIdAndUpdate(
+        req.body.unFollowId,
+        {
+          $pull: { followers: req.user },
+        },
+        { new: true }
+      );
+  
+      const currentUser = await User.findByIdAndUpdate(
+        req.user,
+        {
+          $pull: { following: req.body.unFollowId },
+        },
+        { new: true }
+      );
+  
+      return res.status(200).json({
+        success: true,
+        message: {
+          followedUser,
+          currentUser,
+        },
+      });
+    } catch (error) {
+      return res.status(422).json({
+        success: false,
+        message: error,
+      });
+    }
+  };
+  
   

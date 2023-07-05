@@ -21,6 +21,8 @@ module.exports = (mongoose) => {
           type: Boolean,
           default: false,
         },
+        followers:[{type:mongoose.Schema.Types.ObjectId,ref:'user'}],
+        following:[{type:mongoose.Schema.Types.ObjectId,ref:'user'}],
       },
       {
         timestamps: true,

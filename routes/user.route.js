@@ -10,5 +10,7 @@ module.exports=app=>{
             message:"Page populated after getting the token"
         })
     });
+    router.put('/follow',validateToken,User.follow);
+    router.put('/unfollow',validateToken,User.unFollow);
     app.use('/api',router);
 }
