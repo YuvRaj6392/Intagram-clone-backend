@@ -116,7 +116,7 @@ exports.signup = async (req, res) => {
           $push: { followers: req.user },
         },
         { new: true }
-      );
+      ).select("-password");
   
       const currentUser = await User.findByIdAndUpdate(
         req.user,
@@ -124,7 +124,7 @@ exports.signup = async (req, res) => {
           $push: { following: req.body.followId },
         },
         { new: true }
-      );
+      ).select("-password");
   
       return res.status(200).json({
         success: true,
@@ -150,7 +150,7 @@ exports.signup = async (req, res) => {
           $pull: { followers: req.user },
         },
         { new: true }
-      );
+      ).select("-password");
   
       const currentUser = await User.findByIdAndUpdate(
         req.user,
@@ -158,7 +158,7 @@ exports.signup = async (req, res) => {
           $pull: { following: req.body.unFollowId },
         },
         { new: true }
-      );
+      ).select("-password");
   
       return res.status(200).json({
         success: true,
